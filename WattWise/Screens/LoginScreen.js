@@ -12,32 +12,32 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>WattWise</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        onChangeText={setName}
-        value={name}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log in</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => console.log('Forgot password pressed')}>
+      <View style={styles.loginCard}>
+        <Text style={styles.title}>WattWise</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="#cccccc"
+          onChangeText={setName}
+          value={name}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#cccccc"
+          onChangeText={setPassword}
+          value={password}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Log in</Text>
+        </TouchableOpacity>
         <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => console.log('Sign in pressed')}>
-      <Text style={styles.signinText}>
-            New to WattWise?{'\n'}<Text style={styles.boldText}>Sign In</Text>
-      </Text>      
-      </TouchableOpacity>
+        <Text style={styles.signinText}>
+          New to WattWise?{'\n'}
+          <Text style={styles.boldText}>Sign In</Text>
+        </Text>
+      </View>
     </View>
   );
 };
@@ -45,51 +45,65 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#282c34',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 20,
+    borderRadius: 20,
+    width: '90%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   title: {
     fontSize: 32,
     marginBottom: 20,
-    color: '#61dafb',
+    color: 'white',
     fontWeight: 'bold',
   },
   input: {
-    width: 300,
+    width: '100%',
     height: 50,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    borderRadius: 10,
+    marginBottom: 15,
   },
   button: {
-    width: 300,
+    width: '100%',
     height: 50,
-    backgroundColor: '#61dafb',
-    alignItems: 'center',
+    backgroundColor: 'transparent',
     justifyContent: 'center',
-    borderRadius: 5,
+    alignItems: 'center',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 2,
     marginBottom: 10,
+    marginTop: 15,
   },
   buttonText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
   },
   forgotPasswordText: {
-    color: '#61dafb',
-    fontSize: 15,
+    color: 'white',
+    fontSize: 16,
+    marginBottom: 25,
   },
   signinText: {
-    marginTop: 20,
-    color: '#61dafb',
-    fontSize: 15,
-    textAlign: "center",
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
   },
   boldText: {
-    fontSize: 15,
-    textAlign: "center",
+    fontWeight: 'bold',
+    fontSize: 14,
   }
 });
 
