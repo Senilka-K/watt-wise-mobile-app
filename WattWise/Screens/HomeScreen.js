@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.header}>
                 <Ionicons name="menu" size={30} color="white" style={{ margin: 10 }} />
                 <Image
-                  source={require('../assets/Profile.jpg')}  // Placeholder image URL
+                  source={require('../assets/Profile.jpg')}  
                   style={styles.profilePic}
                 />
                 <Text style={styles.welcomeText}>Welcome, {'\n'} {name}</Text>

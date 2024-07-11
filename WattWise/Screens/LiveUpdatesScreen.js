@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -39,7 +40,9 @@ const LiveUpdatesScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.appHeader}>
+        <Ionicons name="menu" size={30} color="white"/>
         <Text style={styles.appTitle}>Live Updates</Text>
+        <Ionicons name="search" size={30} color="white" />
       </View>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Total Consumption</Text>
@@ -86,7 +89,10 @@ const styles = StyleSheet.create({
   },
   appHeader: {
     backgroundColor: 'transparent',
-    paddingTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 30,
     paddingHorizontal: 50,
     width: '100%',
     textAlign: 'center',
@@ -95,14 +101,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 32,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginLeft: 20,
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 10,
+    paddingTop: 20,
   },
   header: {
     fontSize: 24,

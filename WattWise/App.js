@@ -10,6 +10,8 @@ import HistoryScreen from './Screens/HistoryScreen';
 import NotificationScreen from './Screens/NotificationScreen';
 import ProfileScreen from './Screens/ProfileScreen';
 import LiveUpdatesScreen from './Screens/LiveUpdatesScreen';
+import ApplianceScreen from './Screens/ApplianceScreen';
+import EnergyGuruScreen from './Screens/EnergyGuruScreen';
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Tab = createBottomTabNavigator();
@@ -28,6 +30,8 @@ export default function App() {
         {/* <LoginScreen/> */}
         {/* <HomeScreen /> */}
         <LiveUpdatesScreen />
+        {/* <ApplianceScreen/> */}
+        {/* <EnergyGuruScreen/> */}
 
         {/* <NavigationContainer>
           <Tab.Navigator
