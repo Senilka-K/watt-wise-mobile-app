@@ -44,15 +44,17 @@ const ApplianceScreen = () => {
         <View key={appliance.id} style={styles.applianceItem}>
           <MaterialIcons name={appliance.icon} size={24} color="white" style={{ marginRight: 10 }} />
           <Text style={styles.applianceName}>{appliance.name}</Text>
-          <Switch
-            style={styles.toggleSwitch}
-            trackColor={{ false: "#767577", true: "skyblue" }}
-            thumbColor={appliance.on ? "black" : "white"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={() => toggleSwitch(appliance.id)}
-            value={appliance.on}
-          />
-          {appliance.on && <Text style={styles.appliancePower}>{appliance.power}</Text>}
+          <View style={styles.switchContainer}>
+            <Switch
+              style={styles.toggleSwitch}
+              trackColor={{ false: "#767577", true: "skyblue" }}
+              thumbColor={appliance.on ? "black" : "white"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={() => toggleSwitch(appliance.id)}
+              value={appliance.on}
+            />
+            {appliance.on && <Text style={styles.appliancePower}>{appliance.power}</Text>}
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -69,8 +71,6 @@ const styles = StyleSheet.create({
     padding: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
     marginTop: 20,
   },
   headerText: {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    padding: 15,
     backgroundColor: 'rgba(255,255,255,0.1)',
     marginBottom: 20,
     borderRadius: 20,
@@ -102,27 +102,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
     backgroundColor: 'rgba(255,255,255,0.1)', 
     marginBottom: 20,
     borderRadius: 10,
   },
+  iconStyle: {
+    width: 30, 
+    marginRight: 10,
+  },
   applianceName: {
+    flex: 1, 
     color: 'white',
     fontSize: 18,
-    flex: 2,
-    textAlign: 'left'
   },
   appliancePower: {
+    width: 80, 
     color: 'white',
     fontSize: 18,
-    flex: 1,
-    textAlign: 'center'
+    textAlign: 'right',
+    marginRight: 10,
+  },
+  switchContainer: {
+    width: 120, 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   toggleSwitch: {
-    flex: 0,
-}
+    width: 30,
+    marginRight: 5,
+  }
 });
 
 export default ApplianceScreen;

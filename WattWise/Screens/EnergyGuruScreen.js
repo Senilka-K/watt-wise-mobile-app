@@ -31,7 +31,7 @@ const EnergyGuruScreen = () => {
           </TouchableOpacity>
         ))}
       </ImageBackground>
-
+    <TouchableOpacity>
       <ImageBackground
         source={require('../assets/Energy_saving_tips.jpeg')} 
         style={styles.banner}
@@ -40,6 +40,7 @@ const EnergyGuruScreen = () => {
       >
         <Text style={styles.bannerText}>Energy Saving Tips</Text>
       </ImageBackground>
+    </TouchableOpacity>
     </ScrollView>
   );
 };
