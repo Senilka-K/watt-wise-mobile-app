@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import withBackground from './Background';
 
 const name = 'Senilka Karunarathna'
 const email = 'senilka0108@gmail.com'
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -34,7 +35,7 @@ const ProfileScreen = () => {
                     <Text style={styles.menuText}>Add Users</Text>
                     <Ionicons name="chevron-forward" size={24} color="white" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('SetGoalsScreen')}>
                     <Text style={styles.menuText}>Set Goals</Text>
                     <Ionicons name="chevron-forward" size={24} color="white" />
                 </TouchableOpacity>
@@ -55,14 +56,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',
+        justifyContent: 'center',
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 20,
         paddingBottom: 10,
-        marginTop: 30,
-        marginBottom: 20,
     },
     headerTitle: {
         fontSize: 32,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     profileInfo: {
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     profileImage: {
         width: 120,
@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     email: {
-        fontSize: 16,
+        fontSize: 14,
         color: 'white',
-        marginTop: 10,
+        marginTop: 5,
         marginBottom: 10,
     },
     menuContainer: {
-        marginTop: 10,
+        // marginTop: 10,
     },
     menuItem: {
         flexDirection: 'row',
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
       borderRadius: 10,
       justifyContent: 'center',
+      marginBottom: 30,
     },
     logoutIcon: {
       marginRight: 10,
@@ -135,4 +136,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ProfileScreen;
+export default withBackground(ProfileScreen);

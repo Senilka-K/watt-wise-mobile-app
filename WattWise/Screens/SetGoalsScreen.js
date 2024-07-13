@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
+import withBackground from './Background';
 
 const name = 'Senilka Karunarathna'
 
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 20,
         backgroundColor: 'transparent',
-        marginTop: 20,
+        marginTop: 30,
     },
     headerTitle: {
         fontSize: 32,
@@ -250,4 +251,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SetGoalsScreen;
+export default withBackground(SetGoalsScreen);

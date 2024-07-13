@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import withBackground from './Background';
 
 const EnergyGuruScreen = () => {
   const options = [
@@ -117,4 +118,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EnergyGuruScreen;
+export default withBackground(EnergyGuruScreen);

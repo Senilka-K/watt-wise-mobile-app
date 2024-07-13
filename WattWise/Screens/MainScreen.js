@@ -1,7 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import withBackground from './Background';
 
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        navigation.navigate('Login');
+      }, 2000); // 2000 milliseconds = 2 seconds
+      return () => clearTimeout(timer);
+    }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>WattWise</Text>
@@ -11,24 +19,24 @@ const MainScreen = () => {
 };
 
 const styles = StyleSheet.create({
-container: {
+  container: {
     flex: 1,
     backgroundColor: 'transparent', // Ensuring it's transparent
     alignItems: 'center',
     justifyContent: 'center',
-    },
-    logo: {
+  },
+  logo: {
     fontSize: 48,
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 20,
-    },
-    tagline: {
+  },
+  tagline: {
     fontSize: 18,
     color: 'white', 
     textAlign: 'center',
     paddingHorizontal: 20,
-    }
+  }
 });
 
-export default MainScreen;
+export default withBackground(MainScreen);

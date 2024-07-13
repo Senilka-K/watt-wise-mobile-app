@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import withBackground from './Background';
 
 const LoginScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -7,7 +8,11 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = () => {
     console.log('Logging in with:', name, password);
-    // Add your login logic here
+    if (name !== '' && password !== '') {
+      navigation.navigate('Home');
+    } else {
+      alert('Please enter both name and password');
+    }
   };
 
   return (
@@ -47,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'transparent'
   },
   loginCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -107,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
+export default withBackground(LoginScreen);

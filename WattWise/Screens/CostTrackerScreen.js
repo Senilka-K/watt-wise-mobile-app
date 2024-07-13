@@ -4,6 +4,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import withBackground from './Background';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold'
   },
   icon: {
@@ -304,4 +305,4 @@ const pickerSelectStyles = StyleSheet.create({
     paddingRight: 30,
   },
 })
-export default CostTrackerScreen;
+export default withBackground(CostTrackerScreen);

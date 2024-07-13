@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import withBackground from './Background';
 
 const HistoryScreen= () => {
   return (
@@ -14,13 +15,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'transparent',
   },
   text: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: 'white'
   },
 });
 
-export default HistoryScreen;
+export default withBackground(HistoryScreen);

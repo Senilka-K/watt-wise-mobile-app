@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import withBackground from './Background';
 
 const ApplianceScreen = () => {
   const [appliances, setAppliances] = useState([
@@ -134,4 +135,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ApplianceScreen;
+export default withBackground(ApplianceScreen);

@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import withBackground from './Background';
 
 const screenWidth = Dimensions.get('window').width;
 
-const LiveUpdatesScreen = () => {
+const LiveUpdatesScreen = ({ navigation }) => {
   const chartConfig = {
     backgroundColor: 'rgba(39, 60, 117, 0.1)',
     backgroundGradientFrom: 'rgba(39, 60, 117, 0.1)',
@@ -75,7 +76,7 @@ const LiveUpdatesScreen = () => {
         chartConfig={chartConfig}
         style={styles.chart}
       />
-      <TouchableOpacity style={styles.appliancebutton} onPress={() => navigation.navigate('ApplianceCorner')}>
+      <TouchableOpacity style={styles.appliancebutton} onPress={() => navigation.navigate('ApplianceScreen')}>
         <ImageBackground source={require('../assets/appliance_corner.png')} style={styles.image} imageStyle={{ opacity: 0.75 }}>
           <Text style={styles.appliancebuttonText}>Appliance Corner</Text>
         </ImageBackground>
@@ -154,7 +155,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   appliancebutton: {
-    height: 180,
+    height: 160,
     margin: 15,
     borderRadius: 10,
     overflow: 'hidden',
@@ -176,4 +177,4 @@ appliancebuttonText: {
 }
 });
 
-export default LiveUpdatesScreen;
+export default withBackground(LiveUpdatesScreen);

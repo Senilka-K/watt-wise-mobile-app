@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import LiveUpdatesScreen from './LiveUpdatesScreen';
+import withBackground from './Background';
 
 const name = 'Senilka Karunarathna'
 
@@ -10,35 +10,37 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Ionicons name="menu" size={30} color="white" style={{ margin: 10 }} />
-                <Image
-                  source={require('../assets/Profile.jpg')}  
-                  style={styles.profilePic}
-                />
-                <Text style={styles.welcomeText}>Welcome, {'\n'} {name}</Text>
+                <View style={styles.Profile}>
+                    <Image
+                    source={require('../assets/Profile.jpg')}  
+                    style={styles.profilePic}
+                    />
+                    <Text style={styles.welcomeText}>Welcome, {'\n'} {name}</Text>
+                </View>
             </View>
             <View style={styles.searchBar}>
                 <Text style={styles.searchText}>Search</Text>
             </View>
             <View style={styles.contentContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(LiveUpdatesScreen)}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LiveUpdatesScreen')} >
                     <ImageBackground source={require('../assets/HomeScreen_image_1.jpeg')} style={styles.image} imageStyle={{ opacity: 0.5 }}>
                         <Ionicons name="megaphone" size={60} color="white" style={styles.icon} />
                         <Text style={styles.buttonText}>Live Updates</Text>
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EnergyGuru')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EnergyGuruScreen')}>
                     <ImageBackground source={require('../assets/HomeScreen_image_2.jpeg')} style={styles.image} imageStyle={{ opacity: 0.5 }}>
                         <Ionicons name="bulb" size={60} color="white" style={styles.icon} />
                         <Text style={styles.buttonText}>Energy Guru{'\n'}The AI Advisor</Text>
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Games')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('GameScreen')}>
                     <ImageBackground source={require('../assets/HomeScreen_image_3.jpeg')} style={styles.image} imageStyle={{ opacity: 0.5 }}>
                         <Ionicons name="game-controller" size={60} color="white" style={styles.icon} />
                         <Text style={styles.buttonText}>Games</Text>
                     </ImageBackground>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CostTracker')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('CostTrackerScreen')}>
                     <ImageBackground source={require('../assets/HomeScreen_image_4.jpeg')} style={styles.image} imageStyle={{ opacity: 0.5 }}>
                         <Ionicons name="calculator" size={60} color="white" style={styles.icon} />
                         <Text style={styles.buttonText}>Cost Tracker</Text>
@@ -61,6 +63,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         paddingVertical: 10,
     },
+    Profile: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: 20,
+    },
     profilePic: {
         width: 50,
         height: 50,
@@ -76,8 +83,9 @@ const styles = StyleSheet.create({
     searchBar: {
         backgroundColor: '#ffffff',
         padding: 10,
-        margin: 10,
-        borderRadius: 5,
+        marginHorizontal: 20,
+        marginVertical: 10,
+        borderRadius: 10,
     },
     searchText: {
         color: '#000',
@@ -86,9 +94,9 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     button: {
-        height: 120,
+        height: 100,
         margin: 15,
-        borderRadius: 10,
+        borderRadius: 20,
         overflow: 'hidden',
         justifyContent: 'center',
         shadowColor: '#000',
@@ -119,4 +127,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeScreen;
+export default withBackground(HomeScreen);
