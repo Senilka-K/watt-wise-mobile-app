@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import withBackground from './Background';
 
 const LoginScreen = ({ navigation }) => {
@@ -21,8 +21,11 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../assets/logo.png')}  
+        style={styles.logo}
+      />
       <View style={styles.loginCard}>
-        <Text style={styles.title}>WattWise</Text>
         <TextInput
           style={styles.input}
           placeholder="Name"
@@ -57,6 +60,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
+  },
+  logo: {
+    width: 350,  
+    height: 100, 
+    resizeMode: 'contain',
+    marginBottom: 10,
   },
   loginCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',

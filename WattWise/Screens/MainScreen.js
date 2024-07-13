@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import withBackground from './Background';
 
 const MainScreen = ({ navigation }) => {
     useEffect(() => {
       const timer = setTimeout(() => {
         navigation.navigate('Login');
-      }, 2000); // 2000 milliseconds = 2 seconds
+      }, 2000);
       return () => clearTimeout(timer);
     }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>WattWise</Text>
+      <Image
+        source={require('../assets/logo.png')}  
+        style={styles.logo}
+      />
       <Text style={styles.tagline}>Where Efficiency Meets Intelligence.</Text>
     </View>
   );
@@ -21,18 +24,17 @@ const MainScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent', // Ensuring it's transparent
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 20,
+    width: 350,  
+    height: 100, 
+    resizeMode: 'contain' 
   },
   tagline: {
-    fontSize: 18,
+    fontSize: 24,
     color: 'white', 
     textAlign: 'center',
     paddingHorizontal: 20,
