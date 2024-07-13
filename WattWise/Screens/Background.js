@@ -3,7 +3,7 @@ import { ImageBackground, StyleSheet } from 'react-native';
 
 const withBackground = (Component) => (props) => (
   <ImageBackground
-    source={require('/Users/senilkakarunarathna/Documents/Projects/watt-wise-app/watt-wise-mobile-app/WattWise/assets/Background.jpeg')}
+    source={require('../assets/Background.jpeg')}
     style={styles.background}
     resizeMode="cover"
   >

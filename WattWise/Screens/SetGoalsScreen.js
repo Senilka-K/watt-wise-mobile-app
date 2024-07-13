@@ -7,7 +7,7 @@ import withBackground from './Background';
 const name = 'John Doe'
 
 const ProgressBar = ({ value, maxValue, style }) => {
-    const width = (value / maxValue) * 100 + '%'; // Calculate the width percentage
+    const width = (value / maxValue) * 100 + '%';
     return (
       <View style={[styles.progressBarContainer, style]}>
         <View style={[styles.progressBar, { width }]} />
@@ -38,7 +38,7 @@ const SetGoalsScreen = () => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="arrow-back" size={24} color="white" />
+                <Ionicons name="menu" size={24} color="white" />
                 <Text style={styles.headerTitle}>Set Goals</Text>
             </View>
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
@@ -20,7 +19,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function HomeTabs() {
+function MenueTabs() {
   return (
     <Tab.Navigator screenOptions={{
       tabBarLabelPosition: "below-icon",
@@ -38,7 +37,7 @@ function HomeTabs() {
       },
     }}>
       <Tab.Screen
-        name="Home"
+        name="HomeTab"
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -94,7 +93,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={HomeTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={MenueTabs} options={{ headerShown: false }} />
         <Stack.Screen name="LiveUpdatesScreen" component={LiveUpdatesScreen} options={{ headerShown: false }} />
         <Stack.Screen name="EnergyGuruScreen" component={EnergyGuruScreen} options={{ headerShown: false }} />
         <Stack.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false }} />
@@ -105,16 +104,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  backgroundImage: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-  },
-});

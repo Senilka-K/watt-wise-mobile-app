@@ -10,7 +10,7 @@ const ProfileScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="arrow-back" size={24} color="white" />
+                <Ionicons name="menu" size={24} color="white" />
                 <Text style={styles.headerTitle}>Profile</Text>
             </View>
 
@@ -20,7 +20,7 @@ const ProfileScreen = ({ navigation }) => {
                     style={styles.profileImage}
                 />
                 <TouchableOpacity style={styles.editIcon}>
-                    <Ionicons name="pencil" size={24} color="white" />
+                    <Ionicons name="pencil" size={24} color="black" />
                 </TouchableOpacity>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.email}>{email}</Text>
@@ -82,10 +82,11 @@ const styles = StyleSheet.create({
     },
     editIcon: {
       position: 'absolute',
-      right: 150,
+      right: 125,
       bottom: 60,
-      backgroundColor: 'black',
-      borderRadius: 10,
+      backgroundColor: 'white',
+      borderRadius: 15,
+      padding: 5,
     },
     name: {
         fontSize: 18,

@@ -13,6 +13,10 @@ const LoginScreen = ({ navigation }) => {
     } else {
       alert('Please enter both name and password');
     }
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
   };
 
   return (

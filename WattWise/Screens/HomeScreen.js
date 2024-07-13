@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'transparent',
-        paddingVertical: 10,
+        paddingVertical: 5,
         marginTop: 50,
     },
     Profile: {
@@ -80,23 +80,13 @@ const styles = StyleSheet.create({
         textAlign: "left",
         marginLeft: 20,
     },
-    searchBar: {
-        backgroundColor: '#ffffff',
-        padding: 10,
-        marginHorizontal: 20,
-        marginVertical: 10,
-        borderRadius: 10,
-    },
-    searchText: {
-        color: '#000',
-    },
     contentContainer: {
         padding: 10,
         justifyContent: 'center',
     },
     button: {
         height: 140,
-        margin: 4,
+        margin: 6,
         borderRadius: 20,
         overflow: 'hidden',
         justifyContent: 'center',
