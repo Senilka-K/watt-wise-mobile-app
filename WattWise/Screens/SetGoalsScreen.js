@@ -4,15 +4,25 @@ import { Ionicons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import withBackground from './Background';
 
-const name = 'Senilka Karunarathna'
+const name = 'John Doe'
+
+const ProgressBar = ({ value, maxValue, style }) => {
+    const width = (value / maxValue) * 100 + '%'; // Calculate the width percentage
+    return (
+      <View style={[styles.progressBarContainer, style]}>
+        <View style={[styles.progressBar, { width }]} />
+      </View>
+    );
+  };
 
 const SetGoalsScreen = () => {
     const [targetPower, setTargetPower] = useState(3500);
     const [targetBill, setTargetBill] = useState(5000);
     const [tasks, setTasks] = useState([
-        { id: 't1', text: "Achieved Last week's goals", completed: false },
-        { id: 't2', text: "Set Targets for Next Week", completed: false },
-        { id: 't3', text: "Save Energy Today", completed: false },
+        { id: 't1', text: "Achieved Last week's goals", completed: true },
+        { id: 't2', text: "Complete this week's goals", completed: false},
+        { id: 't3', text: "Set Targets for Next Week", completed: false },
+        { id: 't4', text: "Save Energy Today", completed: false },
     ]);
 
     const toggleTask = (id) => {
@@ -43,8 +53,6 @@ const SetGoalsScreen = () => {
                 />
             </View>
 
-
-
             <TouchableOpacity style={styles.yourTargetButton}>
                 <Text style={styles.yourTargetText}>Your Target</Text>
                 <Ionicons name="chevron-forward" size={22} color="white" />
@@ -54,39 +62,22 @@ const SetGoalsScreen = () => {
                 <Text style={styles.targetsHeader}>One step at a time. You'll get there.</Text>
                 <View style={styles.sliderContainer}>
                     <Text style={styles.label}>Target Power</Text>
-                    <Slider
-                        style={styles.slider}
-                        minimumValue={0}
-                        maximumValue={10000}
-                        step={100}
-                        value={targetPower}
-                        onValueChange={setTargetPower}
-                        minimumTrackTintColor="#FF6347"
-                        maximumTrackTintColor="#000000"
-                    />
+                    <ProgressBar value={targetPower} maxValue={10000} style={styles.progressBarStyle} />
                     <Text style={styles.sliderValue}>{targetPower}W - {Math.round((targetPower / 10000) * 100)}%</Text>
-                    </View>
-                    
-                    <View style={styles.sliderContainer}>
+                </View>
+                <View style={styles.sliderContainer}>
                     <Text style={styles.label}>Target Bill</Text>
-                    <Slider
-                        style={styles.slider}
-                        minimumValue={0}
-                        maximumValue={20000}
-                        step={100}
-                        value={targetBill}
-                        onValueChange={setTargetBill}
-                        minimumTrackTintColor="#FF6347"
-                        maximumTrackTintColor="#000000"
-                    />
+                    <ProgressBar value={targetBill} maxValue={20000} style={styles.progressBarStyle} />
                     <Text style={styles.sliderValue}>Rs.{targetBill} - {Math.round((targetBill / 20000) * 100)}%</Text>
                 </View>
+
             </View>
 
             <TouchableOpacity style={styles.otherGoalsButton}>
                 <Text style={styles.otherGoalsText}>Other Goals</Text>
                 <Ionicons name="chevron-forward" size={22} color="white" />
             </TouchableOpacity>
+            <Text style={styles.GoalsText}>Be gentle with yourself.</Text>
 
             {tasks.map(task => (
                 <View key={task.id} style={styles.taskContainer}>
@@ -131,9 +122,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     profileImage: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
         marginRight: 30,
         marginBottom: 10,
     },
@@ -149,7 +140,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     introText: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
         paddingLeft: 20,
         paddingBottom: 20,
@@ -163,7 +154,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     yourTargetText: {
-        fontSize: 22,
+        fontSize: 28,
         color: 'white',
         fontWeight: 'bold'
     },
@@ -181,23 +172,34 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     sliderContainer: {
-        marginBottom: 5,
-      },
-      label: {
+        marginBottom: 20,
+    },
+    label: {
         fontSize: 16,
         color: 'black',
-        marginTop: 5,
+        marginBottom: 5,
         fontWeight: 'bold',
-      },
-      slider: {
-        height: 40,
-      },
-      sliderValue: {
+    },
+    progressBarContainer: {
+        height: 20,
+        width: '100%',
+        backgroundColor: '#e0e0e0',
+        borderRadius: 10,
+    },
+    progressBar: {
+        height: '100%',
+        backgroundColor: '#FF6347',
+        borderRadius: 10,
+    },
+    progressBarStyle: {
+        marginBottom: 10,
+    },
+    sliderValue: {
         fontSize: 14,
         color: 'grey',
         fontWeight: 'bold',
-        marginLeft: 180,
-      },
+        textAlign: 'right',
+    },
     otherGoalsButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -208,9 +210,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     otherGoalsText: {
-        fontSize: 22,
+        fontSize: 28,
         color: 'white',
         fontWeight: 'bold'
+    },
+    GoalsText: {
+        fontSize: 22,
+        color: 'white',
+        fontWeight: 'bold',
+        margin: 10,
+        textAlign: 'center'
     },
     taskContainer: {
         flexDirection: 'row',
@@ -227,7 +236,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
     taskText: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'black',
         marginLeft: 10,
     },

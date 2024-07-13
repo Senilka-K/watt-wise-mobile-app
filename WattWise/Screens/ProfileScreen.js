@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import withBackground from './Background';
 
-const name = 'Senilka Karunarathna'
-const email = 'senilka0108@gmail.com'
+const name = 'John Doe'
+const email = 'john4321doe@gmail.com'
 
 const ProfileScreen = ({ navigation }) => {
     return (

@@ -27,14 +27,14 @@ function HomeTabs() {
       tabBarShowLabel: true,
       tabBarActiveTintColor: "purple",
       tabBarStyle: {
-        backgroundColor: 'rgba(255,255,255,0.25)', // Set tabBar background to transparent
-        position: 'absolute',           // Position as absolute to overlay
+        backgroundColor: 'rgba(255,255,255,0.25)',
+        position: 'absolute',
         left: 0,
         bottom: 0,
         right: 0,
-        elevation: 0,                  // Remove shadow on Android
-        shadowOpacity: 0,              // Remove shadow on iOS
-        borderTopWidth: 0               // Remove border top
+        elevation: 0,
+        shadowOpacity: 0,
+        borderTopWidth: 0
       },
     }}>
       <Tab.Screen
@@ -105,103 +105,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-
-
-
-    // <View style={styles.container}>
-    //   <StatusBar hidden={true} />
-    //   <ImageBackground 
-    //     source={require('../assets/Background.jpeg')}
-    //     style={styles.backgroundImage}
-    //     resizeMode="cover" 
-    //   >
-    //     {/* <MainScreen/> */}
-    //     {/* <LoginScreen/> */}
-    //     {/* <HomeScreen /> */}
-    //     {/* <LiveUpdatesScreen /> */}
-    //     {/* <ApplianceScreen/> */}
-    //     {/* <EnergyGuruScreen/> */}
-    //     {/* <CostTrackerScreen/> */}
-    //     {/* <ProfileScreen/> */}
-    //     {/* <SetGoalsScreen/> */}
-    //     {/* <AppNavigator/> */}
-
-    //     <NavigationContainer>
-    //       <Tab.Navigator
-    //         screenOptions={{
-    //           tabBarLabelPosition: "below-icon",
-    //           tabBarShowLabel: true,
-    //           tabBarActiveTintColor: "purple",
-    //           tabBarStyle: { backgroundColor: 'transparent' },
-    //           // headerShown: false,
-    //           cardStyle: { backgroundColor: 'transparent' } 
-    //         }}
-    //       >
-    //         <Tab.Screen
-    //           name="Main"
-    //           component={MainScreen}
-    //           options={{
-    //             tabBarLabel: 'Main',
-                // tabBarIcon: ({ color }) => (
-                //   <Ionicons name="shield-outline" size={20} color={color} />
-                // ),
-    //           }}
-    //         />
-    //         <Tab.Screen
-    //           name="Login"
-    //           component={LoginScreen}
-    //           options={{
-    //             tabBarLabel: 'Login',
-    //             tabBarIcon: ({ color }) => (
-    //               <Ionicons name="log-in" size={20} color={color} />
-    //             ),
-    //           }}
-    //         />
-    //         <Tab.Screen
-    //           name="Home"
-    //           component={HomeScreen}
-    //           options={{
-    //             tabBarLabel: 'Home',
-    //             tabBarIcon: ({ color }) => (
-    //               <Ionicons name="home" size={20} color={color} />
-    //             ),
-    //           }}
-    //         />
-    //         <Tab.Screen
-    //           name="History"
-    //           component={LiveUpdatesScreen}
-    //           options={{
-    //             tabBarLabel: 'History',
-    //             tabBarIcon: ({ color }) => (
-    //               <Ionicons name="calendar-outline" size={20} color={color} />
-    //             ),
-    //           }}
-    //         />
-    //         <Tab.Screen
-    //           name="Notification"
-    //           component={NotificationScreen}
-    //           options={{
-    //             tabBarLabel: 'Notification',
-    //             tabBarIcon: ({ color }) => (
-    //               <Ionicons name="notifications-outline" size={20} color={color} />
-    //             ),
-    //           }}
-    //         />
-    //         <Tab.Screen
-    //           name="Profile"
-    //           component={ProfileScreen}
-    //           options={{
-    //             tabBarLabel: 'Profile',
-    //             tabBarIcon: ({ color }) => (
-    //               <Ionicons name="person" size={20} color={color} />
-    //             ),
-    //           }}
-    //         />
-    //       </Tab.Navigator>
-    //     </NavigationContainer>
-    //   </ImageBackground>
-    // </View>
 
 const styles = StyleSheet.create({
   container: {

@@ -81,6 +81,7 @@ const CostTrackerScreen = () => {
         <Text style={styles.title}>Cost Tracker</Text>
         <Ionicons name="search" size={30} color="white" style={styles.icon} />
       </View>
+
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Cost for last</Text>
         <RNPickerSelect
@@ -110,14 +111,18 @@ const CostTrackerScreen = () => {
           <Text style={styles.buttonText}>Set Targets</Text>
         </TouchableOpacity>
       </View>
-      <LineChart
-        data={weeklyCostData}
-        width={screenWidth - 40}
-        height={220}
-        chartConfig={chartConfig}
-        bezier
-        style={styles.chart}
-      />
+        
+      <View style={styles.chartCard}>
+        <LineChart
+          data={weeklyCostData}
+          width={screenWidth - 40}
+          height={220}
+          chartConfig={chartConfig}
+          bezier
+          style={styles.chart}
+        />
+      </View>
+
       <View style={styles.historyContainer}>
         <Text style={styles.historyTitle}>Bill History</Text>
         <View style={styles.historyCard}>
@@ -222,14 +227,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center'
   },
+  chartCard: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 10,
+    marginTop: 5,
+    marginHorizontal: 20,
+    marginBottom: 10,
+  },
   chart: {
     marginTop: 5,
     borderRadius: 16,
     paddingVertical: 5,
-    marginHorizontal: 20,
+    marginRight: 20,
+    alignItems: 'center',
   },
   historyContainer: {
-    marginVertical: 10,
+    marginVertical: 8,
     paddingLeft: 20,
   },
   historyTitle: {

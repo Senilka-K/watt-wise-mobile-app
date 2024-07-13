@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground, 
 import { Ionicons } from '@expo/vector-icons';
 import withBackground from './Background';
 
-const name = 'Senilka Karunarathna'
+const name = 'John Doe'
 
 const HomeScreen = ({ navigation }) => {
     return (
@@ -15,12 +15,12 @@ const HomeScreen = ({ navigation }) => {
                     source={require('../assets/Profile.jpg')}  
                     style={styles.profilePic}
                     />
-                    <Text style={styles.welcomeText}>Welcome, {'\n'} {name}</Text>
+                    <Text style={styles.welcomeText}>Welcome,{'\n'}{name}</Text>
                 </View>
             </View>
-            <View style={styles.searchBar}>
+            {/* <View style={styles.searchBar}>
                 <Text style={styles.searchText}>Search</Text>
-            </View>
+            </View> */}
             <View style={styles.contentContainer}>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LiveUpdatesScreen')} >
                     <ImageBackground source={require('../assets/HomeScreen_image_1.jpeg')} style={styles.image} imageStyle={{ opacity: 0.5 }}>
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',
-        justifyContent: 'center',
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'transparent',
         paddingVertical: 10,
+        marginTop: 50,
     },
     Profile: {
         flexDirection: 'row',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         color: 'white',
         fontSize: 22,
-        textAlign: "center",
+        textAlign: "left",
         marginLeft: 20,
     },
     searchBar: {
@@ -92,10 +92,11 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         padding: 10,
+        justifyContent: 'center',
     },
     button: {
-        height: 100,
-        margin: 15,
+        height: 140,
+        margin: 4,
         borderRadius: 20,
         overflow: 'hidden',
         justifyContent: 'center',
