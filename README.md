@@ -23,7 +23,6 @@ npm install -g expo-cli
    Prepare and run the mobile application:
 
    ```
-   cd WattWise
    npm install
    npx expo start
    ```
