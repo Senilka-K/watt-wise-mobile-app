@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     paddingHorizontal: 20,
+    marginBottom: 85,
   },
   header: {
     flexDirection: 'row',
@@ -103,9 +104,10 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 30,
     borderRadius: 10,
-    overflow: 'hidden' 
+    overflow: 'hidden',
+    marginBottom: 10,
   },
   bannerText: {
     fontSize: 34,

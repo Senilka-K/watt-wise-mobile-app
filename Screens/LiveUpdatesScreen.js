@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    marginBottom: 80,
   },
   appHeader: {
     backgroundColor: 'transparent',
@@ -176,9 +177,11 @@ const styles = StyleSheet.create({
   },
   appliancebutton: {
     height: 200,
-    margin: 15,
+    marginHorizontal: 15,
+    marginTop: 10,
     borderRadius: 20,
     overflow: 'hidden',
+    marginBottom: 10,
 },
 image: {
     flex: 1,

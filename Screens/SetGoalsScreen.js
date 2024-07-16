@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',
+        marginBottom: 80,
     },
     header: {
         flexDirection: 'row',

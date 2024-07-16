@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    marginBottom: 80,
   },
   header: {
     flexDirection: 'row',
@@ -245,6 +246,7 @@ const styles = StyleSheet.create({
   historyContainer: {
     marginVertical: 8,
     paddingLeft: 20,
+    marginBottom: 10,
   },
   historyTitle: {
     fontSize: 22,

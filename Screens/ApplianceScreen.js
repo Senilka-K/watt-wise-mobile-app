@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     paddingHorizontal: 20,
+    marginBottom: 85,
   },
   header: {
     padding: 20,
