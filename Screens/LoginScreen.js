@@ -11,20 +11,20 @@ const LoginScreen = ({ navigation }) => {
       alert('Please enter both name and password');
       return;
     }
-
+  
     const validName = 'WattWiseUser';
     const validPassword = 'wattwise1234';
-
-  if (name === validName && password === validPassword) {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Home' }],
-    });
-    navigation.navigate('Home');
-  } else {
-    alert('Invalid username and password');
-  }
-};
+  
+    if (name === validName && password === validPassword) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    } else {
+      alert('Invalid username and password');
+    }
+  };
+  
 
   return (
     <View style={styles.container}>

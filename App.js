@@ -111,6 +111,7 @@
 import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createDrawerNavigator } from '@react-navigation/drawer'; 
 import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from './Screens/MainScreen';
 import LoginScreen from "./Screens/LoginScreen";
@@ -125,9 +126,13 @@ import GameScreen from './Screens/GameScreen';
 import CostTrackerScreen from './Screens/CostTrackerScreen';
 import SetGoalsScreen from './Screens/SetGoalsScreen';
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { LogBox } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+LogBox.ignoreLogs(['Found screens with the same name nested inside one another.']);
 
 const HomeStack = () => (
   <Stack.Navigator>
@@ -179,7 +184,7 @@ function MenueTabs() {
         borderTopWidth: 0
       },
     }}>
-      <Tab.Screen name="HomeTab" component={HomeStack} options={{ headerShown: false,
+      <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false,
         tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={30} color={color} />
       }} />
       <Tab.Screen name="History" component={HistoryStack} options={{ headerShown: false,
@@ -195,13 +200,22 @@ function MenueTabs() {
   );
 }
 
+const GlobalDrawer = () => (
+  <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Screen name="Home" component={MenueTabs} options={{ headerShown: false }}/>
+    <Drawer.Screen name="History" component={HistoryStack} options={{ headerShown: false }}/>
+    <Drawer.Screen name="Notifications" component={NotificationStack} options={{ headerShown: false }}/>
+    <Drawer.Screen name="Profile" component={ProfileStack} options={{ headerShown: false }} />
+  </Drawer.Navigator>
+);
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Main" component={MainScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={MenueTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={GlobalDrawer} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

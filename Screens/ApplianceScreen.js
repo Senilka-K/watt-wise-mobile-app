@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Switch } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
-const ApplianceScreen = () => {
+const ApplianceScreen = ({ navigation }) => {
   const [appliances, setAppliances] = useState([
     { id: 1, name: 'Fridge', icon: 'kitchen', power: '2678W', alwaysOn: true },
     { id: 2, name: 'Dryer', icon: 'local-laundry-service', power: '500W', alwaysOn: false, on: false },
@@ -26,7 +27,7 @@ const ApplianceScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="menu" size={30} color="white" style={{ margin: 10 }} />
+        <MenuButton navigation={navigation} />
         <Text style={styles.headerText}>Appliance Corner</Text>
       </View>
       <TouchableOpacity style={styles.alwaysOnHeader} onPress={() => setShowAlwaysOn(!showAlwaysOn)}>
