@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Slider from '@react-native-community/slider';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
 const name = 'John Doe'
@@ -15,7 +15,7 @@ const ProgressBar = ({ value, maxValue, style }) => {
     );
   };
 
-const SetGoalsScreen = () => {
+const SetGoalsScreen = ({ navigation }) => {
     const [targetPower, setTargetPower] = useState(3500);
     const [targetBill, setTargetBill] = useState(5000);
     const [tasks, setTasks] = useState([
@@ -38,7 +38,7 @@ const SetGoalsScreen = () => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="menu" size={24} color="white" />
+                <MenuButton navigation={navigation} />
                 <Text style={styles.headerTitle}>Set Goals</Text>
             </View>
 
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',
+        marginBottom: 80,
     },
     header: {
         flexDirection: 'row',

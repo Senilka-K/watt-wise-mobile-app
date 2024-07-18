@@ -7,17 +7,24 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    console.log('Logging in with:', name, password);
-    if (name !== '' && password !== '') {
-      navigation.navigate('Home');
-    } else {
+    if (name === '' || password === '') {
       alert('Please enter both name and password');
+      return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Home' }],
-    });
+  
+    const validName = 'WattWiseUser';
+    const validPassword = 'wattwise1234';
+  
+    if (name === validName && password === validPassword) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    } else {
+      alert('Invalid username and password');
+    }
   };
+  
 
   return (
     <View style={styles.container}>

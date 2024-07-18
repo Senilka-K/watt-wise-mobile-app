@@ -4,11 +4,12 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
 const screenWidth = Dimensions.get('window').width;
 
-const CostTrackerScreen = () => {
+const CostTrackerScreen = ({ navigation }) => {
   const [selectedTimeframe, setSelectedTimeframe] = useState('month');
   const [amount, setAmount] = useState('8679.48');
   const [percentage, setPercentage] = useState('+49.89%');
@@ -77,7 +78,7 @@ const CostTrackerScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="menu" size={30} color="white" style={styles.icon} />
+        <MenuButton navigation={navigation} />
         <Text style={styles.title}>Cost Tracker</Text>
         <Ionicons name="search" size={30} color="white" style={styles.icon} />
       </View>
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    marginBottom: 80,
   },
   header: {
     flexDirection: 'row',
@@ -245,6 +247,7 @@ const styles = StyleSheet.create({
   historyContainer: {
     marginVertical: 8,
     paddingLeft: 20,
+    marginBottom: 10,
   },
   historyTitle: {
     fontSize: 22,

@@ -1,52 +1,98 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground, ScrollView } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
+import { Circle } from 'react-native-svg';
+import * as shape from 'd3-shape';
+import * as scale from 'd3-scale';
+import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
 const screenWidth = Dimensions.get('window').width;
 
-const LiveUpdatesScreen = ({ navigation }) => {
-  const chartConfig = {
-    backgroundColor: '#ffffff',
-    backgroundGradientFrom: '#ffffff',
-    backgroundGradientTo: '#ffffff',
-    decimalPlaces: 0,
-    color: (opacity = 1) => `rgba(75, 192, 192, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    style: {
-      borderRadius: 16
-    },
-    propsForDots: {
-      r: "6",
-      strokeWidth: "2",
-    }
-  };
-      
-  const powerData = {
-    labels: ["2:00", "6:00", "10:00", "14:00", "18:00", "22:00"],
-    datasets: [{
-      data: [100, 200, 150, 450, 300, 500],
-      color: (opacity = 1) => `rgba(75, 192, 192, ${opacity})`,
-      strokeWidth: 2,
-    }],
-    legend: ['Power Consumption']
-  };
+const PointsDecorator = ({ x, y, data }) => {
+  return data.map((value, index) => (
+      <Circle
+          key={index}
+          cx={x(index)}
+          cy={y(value)}
+          r={4}
+          stroke="rgba(75, 192, 192, 1)" 
+          fill="rgba(75, 192, 192, 1)" 
+      />
+  ));
+};
 
-  const currentData = {
-    labels: ["2:00", "6:00", "10:00", "14:00", "18:00", "22:00"],
-    datasets: [{
-      data: [0.5, 1.0, 1.5, 2.0, 2.5, 2.0],
-      color: (opacity = 1) => `rgba(75, 192, 192, ${opacity})`,
-      strokeWidth: 2,
-    }],
-    legend: ['Current Usage']
-  };
+const ChartWithYAxis = ({ data, dataKey, unit}) => {
+  const contentInset = { top: 20, bottom: 20 };
+
+  return (
+    <View style={{ height: 240, flexDirection: 'row', marginLeft: 10 }}>
+      <YAxis
+        data={data.map(item => item[dataKey])}
+        contentInset={contentInset}
+        svg={{ fill: 'grey', fontSize: 8 }}
+        numberOfTicks={10}
+        formatLabel={(value) => `${value}${unit}`}
+        style={{ width: 30}}
+      />
+      <ScrollView
+        horizontal={true}
+        pinchGestureEnabled={true}
+        minimumZoomScale={1}
+        maximumZoomScale={5}
+        style={{ marginLeft: 5 }}
+      >
+        <View>
+          <LineChart
+            style={{ width: screenWidth - 40, height: 220, marginHorizontal: 5 }}
+            data={data.map(item => item[dataKey])}
+            svg={{ stroke: 'rgba(75, 192, 192, 1)' }}
+            contentInset={{ top: 20, bottom: 20, left: 20, right: 20 }}
+            curve={shape.curveLinear}
+          >
+            <Grid />
+            <PointsDecorator data={data} />
+          </LineChart>
+          <XAxis
+            style={{ marginHorizontal: 10, height: 10, width: screenWidth -40 }}
+            data={data}
+            formatLabel={(value, index) => data[index].time}
+            contentInset={{ left: 20, right: 20 }}
+            svg={{ fontSize: 8, fill: 'grey' }}
+          />
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
+
+
+const LiveUpdatesScreen = ({ navigation }) => {
+
+  const powerData = [
+    { time: "2:00", value: 100 },
+    { time: "6:00", value: 200 },
+    { time: "10:00", value: 150 },
+    { time: "14:00", value: 450 },
+    { time: "18:00", value: 300 },
+    { time: "22:00", value: 500 }
+  ];
+
+  const currentData = [
+    { time: "2:00", value: 0.5 },
+    { time: "6:00", value: 1.0 },
+    { time: "10:00", value: 1.5 },
+    { time: "14:00", value: 2.0 },
+    { time: "18:00", value: 2.5 },
+    { time: "22:00", value: 2.0 }
+  ];
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.appHeader}>
-        <Ionicons name="menu" size={30} color="white"/>
+        <MenuButton navigation={navigation} />
         <Text style={styles.appTitle}>Live Updates</Text>
         <Ionicons name="search" size={30} color="white" />
       </View>
@@ -63,13 +109,7 @@ const LiveUpdatesScreen = ({ navigation }) => {
           <Text style={styles.subHeader}>Power</Text>
           <Text style={styles.currentValue}>5634W</Text>
         </View>
-        <LineChart
-          data={powerData}
-          width={screenWidth - 40} 
-          height={180}              
-          chartConfig={chartConfig}
-          style={styles.chart}
-        />
+          <ChartWithYAxis style={styles.chart} data={powerData} dataKey="value" unit="W" />
       </View>
 
       <View style={styles.chartCard}>
@@ -77,13 +117,7 @@ const LiveUpdatesScreen = ({ navigation }) => {
           <Text style={styles.subHeader}>Current</Text>
           <Text style={styles.currentValue}>1.67mA</Text>
         </View>
-        <LineChart
-          data={currentData}
-          width={screenWidth - 40}  
-          height={180}               
-          chartConfig={chartConfig}
-          style={styles.chart}
-        />
+        <ChartWithYAxis style={styles.chart} data={currentData} dataKey="value" unit="mA"/>
       </View>
 
       <TouchableOpacity style={styles.appliancebutton} onPress={() => navigation.navigate('ApplianceScreen')}>
@@ -99,6 +133,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'transparent',
+    marginBottom: 80,
   },
   appHeader: {
     backgroundColor: 'transparent',
@@ -176,9 +211,11 @@ const styles = StyleSheet.create({
   },
   appliancebutton: {
     height: 200,
-    margin: 15,
+    marginHorizontal: 15,
+    marginTop: 10,
     borderRadius: 20,
     overflow: 'hidden',
+    marginBottom: 10,
 },
 image: {
     flex: 1,

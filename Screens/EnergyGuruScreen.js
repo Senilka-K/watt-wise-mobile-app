@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
-const EnergyGuruScreen = () => {
+const EnergyGuruScreen = ({ navigation }) => {
   const options = [
     { key: 'aiInsights', title: 'AI Insights' },
     { key: 'costPrediction', title: 'Cost Prediction' },
@@ -14,7 +15,7 @@ const EnergyGuruScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="menu" size={30} color="white" />
+        <MenuButton navigation={navigation} />
         <Text style={styles.headerTitle}>Energy Guru</Text>
         <Ionicons name="search" size={30} color="white" />
       </View>
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     paddingHorizontal: 20,
+    marginBottom: 85,
   },
   header: {
     flexDirection: 'row',
@@ -103,9 +105,10 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 30,
     borderRadius: 10,
-    overflow: 'hidden' 
+    overflow: 'hidden',
+    marginBottom: 10,
   },
   bannerText: {
     fontSize: 34,

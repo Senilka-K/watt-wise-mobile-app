@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import MenuButton from './MenuButton';
 import withBackground from './Background';
 
 const name = 'John Doe'
@@ -10,7 +11,7 @@ const ProfileScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Ionicons name="menu" size={24} color="white" />
+                <MenuButton navigation={navigation} />
                 <Text style={styles.headerTitle}>Profile</Text>
             </View>
 
