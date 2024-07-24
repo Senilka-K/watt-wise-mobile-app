@@ -8,11 +8,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import MenuButton from './MenuButton';
 import withBackground from './Background';
-import { LogBox } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
-
-LogBox.ignoreLogs(['Support for defaultProps will be removed from function components']);
 
 const PointsDecorator = ({ x, y, data }) => {
   return data.map((value, index) => (
