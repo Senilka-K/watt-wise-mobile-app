@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ImageBackground, ActivityIndicator } from 'react-native';
 import { LineChart, YAxis, XAxis, Grid } from 'react-native-svg-charts';
 import { Circle } from 'react-native-svg';
 import * as shape from 'd3-shape';
@@ -8,8 +8,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import MenuButton from './MenuButton';
 import withBackground from './Background';
+import { LogBox } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
+
+LogBox.ignoreLogs(['Support for defaultProps will be removed from function components']);
 
 const PointsDecorator = ({ x, y, data }) => {
   return data.map((value, index) => (
@@ -26,6 +29,7 @@ const PointsDecorator = ({ x, y, data }) => {
 
 const ChartWithYAxis = ({ data, dataKey, unit}) => {
   const contentInset = { top: 20, bottom: 20 };
+  const chartWidth = data.length * 50;
 
   return (
     <View style={{ height: 240, flexDirection: 'row', marginLeft: 10 }}>
@@ -35,18 +39,18 @@ const ChartWithYAxis = ({ data, dataKey, unit}) => {
         svg={{ fill: 'grey', fontSize: 8 }}
         numberOfTicks={10}
         formatLabel={(value) => `${value}${unit}`}
-        style={{ width: 30}}
+        style={{ width: 40}}
       />
       <ScrollView
         horizontal={true}
         pinchGestureEnabled={true}
         minimumZoomScale={1}
         maximumZoomScale={5}
-        style={{ marginLeft: 5 }}
+        style={{ marginLeft: 5, overflow: 'hidden'}}
       >
         <View>
           <LineChart
-            style={{ width: screenWidth - 40, height: 220, marginHorizontal: 5 }}
+            style={{ width: chartWidth, height: 220, marginHorizontal: 5 }}
             data={data.map(item => item[dataKey])}
             svg={{ stroke: 'rgba(75, 192, 192, 1)' }}
             contentInset={{ top: 20, bottom: 20, left: 20, right: 20 }}
@@ -56,7 +60,7 @@ const ChartWithYAxis = ({ data, dataKey, unit}) => {
             <PointsDecorator data={data} />
           </LineChart>
           <XAxis
-            style={{ marginHorizontal: 10, height: 10, width: screenWidth -40 }}
+            style={{ marginHorizontal: 10, height: 10, width: chartWidth }}
             data={data}
             formatLabel={(value, index) => data[index].time}
             contentInset={{ left: 20, right: 20 }}
@@ -71,23 +75,70 @@ const ChartWithYAxis = ({ data, dataKey, unit}) => {
 
 const LiveUpdatesScreen = ({ navigation }) => {
 
-  const powerData = [
-    { time: "2:00", value: 100 },
-    { time: "6:00", value: 200 },
-    { time: "10:00", value: 150 },
-    { time: "14:00", value: 450 },
-    { time: "18:00", value: 300 },
-    { time: "22:00", value: 500 }
-  ];
+  const [powerData, setPowerData] = useState([]);
+  const [currentData, setCurrentData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const currentData = [
-    { time: "2:00", value: 0.5 },
-    { time: "6:00", value: 1.0 },
-    { time: "10:00", value: 1.5 },
-    { time: "14:00", value: 2.0 },
-    { time: "18:00", value: 2.5 },
-    { time: "22:00", value: 2.0 }
-  ];
+  useEffect(() => {
+    const fetchData = async (since) => {
+      setIsLoading(true);
+      if (!since) {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setHours(yesterday.getHours() + 12);
+        since = yesterday.getTime() / 1000;
+      }
+    
+      since = parseInt(since);
+      
+      try {
+        const query = `query{ realtime(sinceTimestamp: ${since}){timestamp, reading} }`;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://z3u4qoi3ul.execute-api.ap-south-1.amazonaws.com/prod/graphql', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              const result = JSON.parse(xhr.responseText);
+
+              if (result.data && result.data.realtime && result.data.realtime.length > 1) {
+                const data = result.data.realtime;
+                const isAscending = data[0].timestamp < data[data.length - 1].timestamp;
+  
+                const processedPowerData = (isAscending ? data.slice(-30) : data.slice(0, 30).reverse()) // change the datapoint count
+                  .map(item => ({
+                    time: new Date(item.timestamp * 1000).toLocaleTimeString(),
+                    value: item.reading,
+                  }));  
+
+                const processedCurrentData = processedPowerData.map(item => ({
+                  time: item.time,
+                  value: item.value / 230, // Power (W) / Voltage (V) = Current (A)
+                }));
+
+                setPowerData(processedPowerData);
+                setCurrentData(processedCurrentData);
+              } else {
+                console.error('Unexpected response structure:', result);
+              }
+            } else {
+              console.error('Request failed', xhr.status, xhr.statusText);
+            }
+            setIsLoading(false);
+          }
+        };
+
+        xhr.send(query);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
@@ -107,17 +158,30 @@ const LiveUpdatesScreen = ({ navigation }) => {
       <View style={styles.chartCard}>
         <View style={styles.valueContainer}>
           <Text style={styles.subHeader}>Power</Text>
-          <Text style={styles.currentValue}>5634W</Text>
+          <Text style={styles.currentValue}>
+            {isLoading ? <ActivityIndicator size="small" color="grey" /> : `${powerData[powerData.length - 1]?.value}W`}
+          </Text>
         </View>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="grey" style={styles.loader} />
+        ) : (
           <ChartWithYAxis style={styles.chart} data={powerData} dataKey="value" unit="W" />
+        )}
       </View>
+
 
       <View style={styles.chartCard}>
         <View style={styles.valueContainer}>
           <Text style={styles.subHeader}>Current</Text>
-          <Text style={styles.currentValue}>1.67mA</Text>
+          <Text style={styles.currentValue}>
+            {isLoading ? <ActivityIndicator size="small" color="grey" /> : `${currentData[currentData.length - 1]?.value.toFixed(2)}mA`}
+          </Text>
         </View>
-        <ChartWithYAxis style={styles.chart} data={currentData} dataKey="value" unit="mA"/>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="grey" style={styles.loader} />
+        ) : (
+          <ChartWithYAxis style={styles.chart} data={currentData} dataKey="value" unit="mA"/>
+        )}
       </View>
 
       <TouchableOpacity style={styles.appliancebutton} onPress={() => navigation.navigate('ApplianceScreen')}>
@@ -202,12 +266,18 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginHorizontal: 20,
     marginBottom: 10,
+    minHeight: 300,
   },
   chart: {
     marginBottom: 10,
     marginTop: 10,
     borderRadius: 10,
     alignSelf: 'center',
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   appliancebutton: {
     height: 200,
